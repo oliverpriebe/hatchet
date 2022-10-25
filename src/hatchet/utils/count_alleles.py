@@ -224,7 +224,7 @@ class AlleleCounter(Worker):
         return self.countAlleles(bamfile=bamfile, samplename=samplename, chromosome=chromosome)
 
     def countAlleles(self, bamfile, samplename, chromosome):
-        cmd_mpileup = '{} mpileup {} -Ou -f {} --skip-indels -a INFO/AD -q {} -Q {} -d {} -T {}'.format(
+        cmd_mpileup = '{} mpileup {} -Ou -f {} --skip-indels -a INFO/AD -q {} -Q {} -d {} -R {}'.format(
             self.bcftools,
             bamfile,
             self.reference,

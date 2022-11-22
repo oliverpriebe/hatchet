@@ -254,7 +254,7 @@ class Caller(Process):
         cmd_call = '{} call -mv -Oz -o {}'.format(self.bcftools, outfile)
         if self.snplist is not None:
             assert os.path.isfile(tgtfile)
-            cmd_mpileup += ' -T {}'.format(tgtfile)
+            cmd_mpileup += ' -R {}'.format(tgtfile)
         else:
             cmd_mpileup += ' -r {}'.format(chromosome)
         if self.E:

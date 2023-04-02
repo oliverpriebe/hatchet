@@ -334,7 +334,10 @@ class Phaser(Worker):
             f'--input-ref {inref} '
             f'--output-log {self.outdir}/{chromosome}_alignments'
         )
-
+        
+        # if there are no misalignments this file won't be made, which causes phaser error
+        cmd_touch = (f'touch {self.outdir}/{chromosome}_alignments.snp.strand.exclude')
+        
         cmd_phase = (
             f'{self.shapeit} --input-vcf {self.outdir}/{chromosome}_filtered.vcf.gz '
             f'--input-map {inmap} '
@@ -356,7 +359,7 @@ class Phaser(Worker):
 
         run(cmd_check, stdouterr_filepath=errname, check_return_codes=False)  # May return 1
         run(
-            [cmd_phase, cmd_convert, cmd_compress, cmd_index],
+            [cmd_touch, cmd_phase, cmd_convert, cmd_compress, cmd_index],
             stdouterr_filepath=errname,
             error_msg=f'Phasing failed on {infile}.',
         )
